@@ -12,9 +12,60 @@ class MathController {
     fun sum(@PathVariable(value = "numberOne") numberOne: String?,
             @PathVariable(value = "numberTwo") numberTwo: String?): Double {
 
+        validMathOperation(numberOne, numberTwo)
+
+        return convertToDouble(numberOne) + convertToDouble(numberTwo)
+    }
+
+    @RequestMapping(value = ["/subtract/{numberOne}/{numberTwo}"])
+    fun subtract(@PathVariable(value = "numberOne") numberOne: String?,
+                 @PathVariable(value = "numberTwo") numberTwo: String?): Double {
+
+        validMathOperation(numberOne, numberTwo)
+
+        return convertToDouble(numberOne) - convertToDouble(numberTwo)
+    }
+
+    @RequestMapping(value = ["/multiply/{numberOne}/{numberTwo}"])
+    fun multiply(@PathVariable(value = "numberOne") numberOne: String?,
+                 @PathVariable(value = "numberTwo") numberTwo: String?): Double {
+
+        validMathOperation(numberOne, numberTwo)
+
+        return convertToDouble(numberOne) * convertToDouble(numberTwo)
+    }
+
+    @RequestMapping(value = ["/divide/{numberOne}/{numberTwo}"])
+    fun divide(@PathVariable(value = "numberOne") numberOne: String?,
+            @PathVariable(value = "numberTwo") numberTwo: String?): Double {
+
+        validMathOperation(numberOne, numberTwo)
+
+        if (numberTwo == "0") throw UnsupportedMathOperationException("Division by 0")
+
+        return convertToDouble(numberOne) / convertToDouble(numberTwo)
+    }
+
+    @RequestMapping(value = ["/avg/{numberOne}/{numberTwo}"])
+    fun avg(@PathVariable(value = "numberOne") numberOne: String?,
+            @PathVariable(value = "numberTwo") numberTwo: String?): Double {
+
+        validMathOperation(numberOne, numberTwo)
+
+        return (convertToDouble(numberOne) + convertToDouble(numberTwo)) / 2
+    }
+
+    @RequestMapping(value = ["/sqrt/{numberOne}"])
+    fun sqrt(@PathVariable(value = "numberOne") numberOne: String?): Double {
+
+        validMathOperation(numberOne,"0")
+
+        return kotlin.math.sqrt(convertToDouble(numberOne))
+    }
+
+    private fun validMathOperation(numberOne: String?, numberTwo: String?) {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo))
             throw UnsupportedMathOperationException("Please set a numeric value")
-        return convertToDouble(numberOne) + convertToDouble(numberTwo)
     }
 
     private fun convertToDouble(strNumber: String?): Double {
