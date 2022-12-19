@@ -32,7 +32,7 @@ class PersonService {
         return repository.save(person)
     }
 
-    fun update(person: Person) {
+    fun update(person: Person) : Person{
         logger.info("Updating one person with id ${person.id}")
 
         val entity = findById(person.id)
@@ -40,6 +40,8 @@ class PersonService {
         entity.firstName = person.firstName
         entity.lastName = person.lastName
         entity.address = person.address
+
+        return repository.save(entity)
     }
 
     fun delete(id: Long) {
