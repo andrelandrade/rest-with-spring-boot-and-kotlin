@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder
 
 @JsonPropertyOrder("id", "address", "firstName", "lastName")
 data class PersonVO (
-    @field:JsonIgnore
+    //@field:JsonIgnore
     var id: Long = 0,
 
     @field:JsonProperty("first_name")
